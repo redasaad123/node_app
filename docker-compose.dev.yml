@@ -1,0 +1,14 @@
+version: '3.0'
+
+services:
+  
+  node-app:
+    container_name: myapp2
+    build: .
+    volumes:
+      - .:/app:ro
+    ports:
+      - "3000:3000"
+
+  
+
