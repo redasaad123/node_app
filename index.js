@@ -19,6 +19,7 @@ mongoose.connect('mongodb://root:example@mongo:27017/?authSource=admin', {
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
+
 app.get('/', (req, res) => {
   redisClient.set('products', JSON.stringify({ name: 'Product 1', price: 100 }));
     
@@ -31,6 +32,6 @@ app.get('/data1', async(req, res) => {
   res.send(`Hello from Node + MongoDB!` + `\nProducts: ${products}`);
 });
 
-app.listen(3000, () => {
-  console.log('🚀 Server running on http://localhost:3000');
+app.listen(3000, '0.0.0.0', () => {
+  console.log("Server running on 0.0.0.0:3000");
 });
