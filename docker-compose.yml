@@ -7,6 +7,7 @@ services:
   node-app:
     container_name: myapp2
     build: .
+    image: redasaad123/docker-test
     ports:
       - "3000:3000"
     depends_on:
