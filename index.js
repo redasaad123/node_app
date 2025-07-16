@@ -1,37 +1,34 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const redis = require("redis");
-const { url } = require('inspector');
+const os = require('os');
 const app = express();
 
 
-//connect redis
-
+// connect to Redis
 const redisClient = redis.createClient({
     url: 'redis://redis:6379',
 });
-redisClient.connect();
+redisClient.connect().catch(console.error); // تجنب unhandled promise
 
-mongoose.connect('mongodb://root:example@mongo:27017/?authSource=admin', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ Connected to MongoDB'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+// connect to MongoDB
+mongoose.connect('mongodb://root:example@mongo:27017/?authSource=admin')
+  .then(() => console.log('✅ Connected to MongoDB'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
 
-
-app.get('/', (req, res) => {
-  redisClient.set('products', JSON.stringify({ name: 'Product 1', price: 100 }));
-    
-  
-  res.send('Hello from Node + MongoDB!');
+// routes
+app.get('/', async (req, res) => {
+  await redisClient.set('products', JSON.stringify({ name: 'Product 1', price: 100 }));
+  console.log("Hostname: " + os.hostname());
+  res.send('Hello from Node thanks');
 });
 
-app.get('/data1', async(req, res) => {
-    const products = await redisClient.get('products');
-  res.send(`Hello from Node + MongoDB!` + `\nProducts: ${products}`);
+app.get('/data1', async (req, res) => {
+  const products = await redisClient.get('products');
+  res.send(`Hello from Node + MongoDB!\nProducts: ${products}`);
 });
 
-app.listen(3000, '0.0.0.0', () => {
+// start server
+app.listen(3000 ,"0.0.0.0",() => {
   console.log("Server running on 0.0.0.0:3000");
 });

@@ -5,11 +5,18 @@ version: '3.0'
 
 services:
   node-app:
-    container_name: myapp2
+    #container_name: myapp2
     build: .
     image: redasaad123/docker-test
-    ports:
-      - "3000:3000"
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      update_config:
+        parallelism: 2
+        delay: 10s
+
     depends_on:
       - mongo
       - redis
@@ -45,6 +52,8 @@ services:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - node-app
+
+
 
 
 volumes:

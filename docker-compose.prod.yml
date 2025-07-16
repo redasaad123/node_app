@@ -5,7 +5,6 @@ services:
   node-app:
     container_name: myapp2
     build: .
-    
     ports:
       - "3000:3000"
 
