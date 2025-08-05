@@ -27,7 +27,7 @@ pipeline{
             steps {
               // Run mutliple commands
               sh '''
-              ansible-playbook playbook-ansible.decompose.yml
+              ansible-playbook playbook-ansible-decompose.yml
               '''
             }
         }
