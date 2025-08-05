@@ -22,6 +22,15 @@ pipeline{
               '''
             }
         }
+
+        stage("run dockerCompose"){
+            steps {
+              // Run mutliple commands
+              sh '''
+              ansible-playbook playbook-ansible.decompose.yml
+              '''
+            }
+        }
             
                 
             

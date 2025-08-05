@@ -1,0 +1,22 @@
+---
+- name: "Build container with ansible"
+  hosts: localhost
+  tasks:
+    - name: stop running container
+      command: docker compose down
+      ignore_errors: yes
+
+    - name: remove used image
+      command: docker rmi redasaad123/docker-test
+      ignore_errors: yes
+
+    - name: docker compose build
+      command: docker compose build
+
+
+    - name: docker up
+      command: docker compose up -d
+
+
+
+ 
