@@ -13,6 +13,9 @@
     - name: docker compose build
       command: docker compose build
 
+    - name: docker compose push
+      command: docker compose push 
+
     - name: docker up
       command: docker compose up -d
 
