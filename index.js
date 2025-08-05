@@ -20,7 +20,7 @@ mongoose.connect('mongodb://root:example@mongo:27017/?authSource=admin')
 app.get('/', async (req, res) => {
   await redisClient.set('products', JSON.stringify({ name: 'Product 1', price: 100 }));
   console.log("Hostname: " + os.hostname());
-  res.send('Hello from Node thanks');
+  res.send('Hello from Node thanks ya bao ryad');
 });
 
 app.get('/data1', async (req, res) => {
